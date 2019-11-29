@@ -1,0 +1,94 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+
+    <h1>Que je trépasse si je faibli</h1>
+    <div class="combattant">
+
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Race</th>
+                    <th>Date de création</th>
+                    <th>dernière mise à jours</th>
+                    <th>Vivant</th>
+                    <th>Ses combats</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for warrior in warriors %}
+                <tr>
+                    <td> <img class="profile" src="{% if warrior.filename starts with "default" %}
+                        {{ asset('/images/defaultImage/'~warrior.filename) | imagine_filter('thumb') }}
+                        {% else %}
+                        {{ vich_uploader_asset(warrior, "imageFile") | imagine_filter('thumb')}}
+
+                {% endif %}
+                        " alt="photo de profil" /> {{ warrior.nom }} {% if warrior.winner %}<span class="winner" title="Vainqueur du tournois">&#9733;</span>{% endif %} {% if warrior.deathDate != null %}<span class="death" title="Décédé">&#9760;</span>{% endif %}</td>
+                    <td>{{ warrior.getRace }}</td>
+                    <td>{{ warrior.createdDate|date('d/m/Y') }}</td>
+                    <td>{{ warrior.updatedDate|date('d/m/Y') }}</td>
+                    <td>
+                        {% if warrior.deathDate == null %}
+                            Vivant
+                        {% else %}
+                            Mort dignement au combat  <br>({{ warrior.createdDate|date('d/m/Y') }} - {{ warrior.deathDate|date('d/m/Y') }})
+                        {% endif %}
+                    </td>
+                    <td><a href="{{ path('warrior_fight', { slug: warrior.slug }) }}">Afficher ses combats</a></td>
+                    <td><a href="{{ path('warrior_edit', {slug: warrior.slug}) }}">Éditer </a>  ou <a href="#" class="delete" data-id="{{ warrior.id }}" data-name="{{ warrior.nom }}">Supprimer </a> </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <div class="modal" id="modal">
+        <div class="message">
+            <p>Êtes vous sûr de vouloir supprimer <span id="warriorId"></span> ?</p>
+
+           <a href="#" id="removeWarrior"> <button type="button">Oui</button></a>
+            <button type="button" id="closeModal">Non</button>
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+<script>
+    document.addEventListener("DOMContentLoaded", init);
+
+    function init() {
+        document.querySelectorAll(".delete").forEach(link => link.addEventListener("click", showModale));
+        document.getElementById('closeModal').addEventListener('click', closeModal);
+    }
+
+    function showModale(evt) {
+        evt.preventDefault();
+
+        let id = this.dataset.id;
+        let name = this.dataset.name;
+
+        let modal = document.getElementById('modal');
+        let url = `./warrior/remove/${id}`;
+
+        document.getElementById('warriorId').innerText = name;
+        document.getElementById('removeWarrior').setAttribute('href', url);
+
+        modal.style.display = "block"
+
+
+    }
+
+    function closeModal(evt){
+        document.getElementById('modal').style.display = "none";
+    }
+</script>
+{% endblock %}

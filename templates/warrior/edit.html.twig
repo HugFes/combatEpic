@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+    <a href="{{ path("home") }}"><button>retour à la liste</button></a>
+
+    <h1>Édition  du combatant : {% if warrior %} {{ warrior.nom }}{% endif %}</h1>
+    <img class="profile edit" src="{% if warrior.filename starts with "default" %}
+                        {{ asset('/images/defaultImage/'~warrior.filename) | imagine_filter('thumb') }}
+                        {% else %}
+                        {{ vich_uploader_asset(warrior, "imageFile") | imagine_filter('thumb')}}
+
+                {% endif %}
+                        " alt="photo de profil" />
+
+
+    {% if error %}
+        <p class="error">{{ error }}</p>
+    {% endif %}
+
+    {% if message %}
+        <p class="success">{{ message }}</p>
+    {% endif %}
+
+    {{ form(form) }}
+
+{% endblock %}

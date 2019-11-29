@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+    <h1>Création de combattant</h1>
+    {% if warrior %}
+    <div>
+        <p>Le combattant à bien été créé.</p>
+        <p>Il s'appelle <span class="infoWarrior">{{ warrior.nom }}</span> et il s'agit d'un <span class="infoWarrior">{{ warrior.getRace }}</span></p>
+        <p>Il possède <span class="infoWarrior">{{ warrior.pv }} PV</span>, <span class="infoWarrior">{{ warrior.intelligence }}</span> d'intelligence et <span class="infoWarrior">{{ warrior.strength }} de force.</span></p>
+    </div>
+{% endif %}
+    {{ form(form) }}
+{% endblock %}

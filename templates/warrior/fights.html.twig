@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+    <a href="{{ path("home") }}"><button>retour à la liste</button></a>
+
+    {% if warrior %}
+        <h1>Les combats de : {{ warrior.nom }}</h1>
+    {% endif %}
+
+
+    {% if error %}
+        <div class="error">
+            <p>{{ error }}</p>
+        </div>
+    {% endif %}
+
+
+
+    {% if fights %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Combattant 1</th>
+                    <th>Combattant 2</th>
+                    <th>Zone</th>
+                    <th>Déroulé</th>
+                    <th>Vainqueur</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for fight in fights %}
+                    <tr>
+                        <td>{{ fight.combattant1.nom }}</td>
+                        <td>{{ fight.combattant2.nom }}</td>
+                        <td>{{ fight.zone }}</td>
+                        <td>
+                            <ol>
+                                {% for round in fight.rounds %}
+                                    <li>{{ round }}</li>
+                                {% endfor %}
+                            </ol>
+                        </td>
+                        <td>{{ fight.winner.nom }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {%  endif %}
+
+{% endblock %}

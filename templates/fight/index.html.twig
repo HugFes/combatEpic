@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+
+    {% if error %}
+    <p class="error">{{ error }}</p>
+    {% endif %}
+
+    {% if nbWarriors >1 %}
+        {{ form(goFight) }}
+    {% endif %}
+
+
+    {% if fight %}
+        <div>
+            {% for duel in fight %}
+                <div class="oneFight">
+                    <p>Le duel se déroule sur la zone : {{ duel.zone }}</p>
+                    <ul>
+                        {% for round in duel.fight %}
+                        <li>{{ round }}</li>
+                        {% endfor %}
+
+                    </ul>
+                </div>
+            {% endfor %}
+
+        </div>
+    {% endif %}
+{% endblock %}
