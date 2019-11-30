@@ -25,6 +25,7 @@ class WarriorRepository extends ServiceEntityRepository
     public function getWarriorAlive(){
         $warriors = $this->createQueryBuilder("c")
             ->where("c.deathDate is Null")
+            ->andWhere("c.pv > 0")
             ->getQuery()
             ->getResult();
 
