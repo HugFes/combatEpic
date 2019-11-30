@@ -16,9 +16,10 @@ class WarriorType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
 
     {
-        // FIXME : add functional validator on builder
         $builder
-            ->add('nom', TextType::class)
+            ->add('nom', TextType::class, [
+                "constraints"=>[new NotBlank(["message"=>"Vous devez renseigner un nom"])]
+            ])
             ->add('race', ChoiceType::class, [
                 'choices'=>[
                     'Troll' =>'T',
@@ -26,7 +27,7 @@ class WarriorType extends AbstractType
                     'Nain'  =>'N',
                 ],
                 "attr"=>["required"=>"required"],
-                'constraints' => [new NotBlank()]
+                'constraints' => [new NotBlank(["message"=>"Race Invalid"])]
             ])
             ->add('save', SubmitType::class, [
                 "label"=>"Créer",

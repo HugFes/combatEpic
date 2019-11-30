@@ -34,7 +34,6 @@ class WarriorController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()){
 
             $data = $form->getData();
-            // todo : make soft alert without block execution ($error  = ...)
             if (trim($data["nom"]) === ""){
                 throw new InvalidArgumentException("Bad request : invalid Name", 400);
             }

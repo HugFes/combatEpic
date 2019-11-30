@@ -20,7 +20,6 @@ class FightController extends AbstractController
      */
     public function index(Request $request)
     {
-        //todo : check if possible to fight (minimum 2 warriors)
         $goFight=$this->createFormBuilder()->add('Fight', SubmitType::class, ["label"=>"Lancer le combat"])->getForm();
 
         $goFight->handleRequest($request);
