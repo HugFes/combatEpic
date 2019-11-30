@@ -97,7 +97,7 @@ class WarriorController extends AbstractController
         }
 
         return $this->render('warrior/fights.html.twig', [
-            'name' => 'Liste des combats',
+            'name' => 'Liste des combats de ' .$warrior->getNom(),
             "warrior"=>$warrior,
             'fights'=>$fights,
             "error"=>$error,
@@ -144,7 +144,7 @@ class WarriorController extends AbstractController
         }
 
         return $this->render('warrior/edit.html.twig', [
-            'name' => 'Liste des combats',
+            'name' => 'edition de '.$warrior->getNom(),
 
             "warrior"=>$warrior,
             "error"=>$error,
