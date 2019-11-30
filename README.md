@@ -6,6 +6,10 @@
 * LiipImagineBundle : charger les images recadrer et les stocker en cache pour gagner en performance d'affichage.
 
 ## Pour charger les combattants 
+Créer une base de donnée et appliquer les migrations.
+**Attention** il faut ajouter un fichier .env 
+
+puis lancer cette commande
 `php bin/console doctrine:fixtures:load`
 
 ## Amélioration possible 
